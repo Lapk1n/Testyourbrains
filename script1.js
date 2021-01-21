@@ -6,6 +6,7 @@ let showResult = document.querySelector('.results')
 let resultStore = {}
 let showResultButton = document.querySelector('.show-result-button')
 
+// Список вопросов
 let questions = {
   Question1: 'В каком году человек оказался в космосе?',
   Question2: 'Сколько лет длилась столетняя война?',
@@ -15,6 +16,7 @@ let questions = {
   Question6: 'Где живет Путин?',
   Question7: 'Сколько кубков ЛЧ взял Реал с Зиданом?'
 }
+// Варианты ответов
 let answers = {
   Answers1: [1961, 1962, 1963, 1964],
   Answers2: [99, 100, 101, 110],
@@ -24,8 +26,10 @@ let answers = {
   Answers6: ['Во дворце', 'В хрущевке', 'Кто это', 'Свободу Навальному!'],
   Answers7: ['3', '2', 'Пута Барса!', 'Я вообще за МЮ']
 }
+// Правильные ответы
 let correctAnswers = [1961, 100, 4, 24, 'Нисколько', 'Во дворце', '3']
 
+// Создание карточек с вопросами
 if (correctAnswers.length === Object.values(questions).length) {
 
   for (let i = 0; i < Object.keys(questions).length; i ++) {
@@ -44,18 +48,17 @@ if (correctAnswers.length === Object.values(questions).length) {
     if (i > 0) newCard.classList.add('hidden')
     testBody.appendChild(newCard)
   }
-
+// Функция записи результата ответа
   function readAnswer(collection, num) {
     for (let i = 0; i < collection.length; i ++) {
-      collection[i].addEventListener('click', () => {
+      collection[i].onclick = () => {
         resultStore[num] = collection[i].textContent
-      })
+      }
     }
   }
-
+// Смена карточек
   let buttons = document.querySelectorAll('.button')
   let cards = document.querySelectorAll('.card')
-
   for (let i = 0; i < buttons.length; i ++) {
     buttons[i].onclick = () => {
       if (resultStore[i]) {

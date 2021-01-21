@@ -1,5 +1,7 @@
 let reloadButton = document.querySelector('.reload-button')
 let resultsPoints = document.querySelector('.results-points')
+
+// Функция подсчета набранных баллов
 function calcPoints(correctAnswers, resultStore) {
   let sum = 0;
   for (let i = 0; i < correctAnswers.length; i ++) {
@@ -9,6 +11,7 @@ function calcPoints(correctAnswers, resultStore) {
   }
   return sum;
 }
+// Вывод результатов
 showResultButton.onclick = () => {
   let points = calcPoints(correctAnswers, resultStore)
   showResultButton.classList.add('hidden')
