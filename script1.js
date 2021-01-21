@@ -60,6 +60,7 @@ if (correctAnswers.length === Object.values(questions).length) {
           cards[i + 1].classList.remove('hidden')
         } else {
           showResultButton.classList.remove('hidden')
+          showResultButton.textContent = 'Показать результаты'
         }
       } else {
         alert('Сначала выберите ответ')
