@@ -48,7 +48,7 @@ if (correctAnswers.length === Object.values(questions).length) {
     if (i > 0) newCard.classList.add('hidden')
     testBody.appendChild(newCard)
   }
-// Функция записи результата ответа
+// Функция записи результата ответа, стилизация кликов
   function readAnswer(collection, num) {
     for (let i = 0; i < collection.length; i ++) {
       collection[i].onclick = () => {
@@ -59,6 +59,15 @@ if (correctAnswers.length === Object.values(questions).length) {
           }
         }
         collection[i].classList.add('choosed')
+      }
+      collection[i].onmouseover = () => {
+        collection[i].style.background = '#FFC524'
+      }
+      collection[i].onmouseout = () => {
+        collection[i].style.background = ''
+      }
+      collection[i].onmousedown = () => {
+        collection[i].style.background = '#5FC900'
       }
     }
   }

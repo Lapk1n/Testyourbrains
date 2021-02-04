@@ -134,13 +134,6 @@ body {
 }
 
 /* Element effects */
-.card-answer li:hover {
-  background-color: #5FC900;
-  cursor: pointer;
-}
-.card-answer li:active {
-  background-color: #70F000;
-}
 .button:hover {
   background-color: #FFF321;
   cursor: pointer;
@@ -163,5 +156,5 @@ body {
   background-color: #FFC524;
 }
 .choosed {
-  background-color: #70F000;
+  background-color: #5FC900;
 }
