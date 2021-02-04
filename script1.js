@@ -53,6 +53,12 @@ if (correctAnswers.length === Object.values(questions).length) {
     for (let i = 0; i < collection.length; i ++) {
       collection[i].onclick = () => {
         resultStore[num] = collection[i].textContent
+        for (let item of collection) {
+          if (item.classList.contains('choosed')) {
+            item.classList.remove('choosed')
+          }
+        }
+        collection[i].classList.add('choosed')
       }
     }
   }
