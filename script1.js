@@ -14,7 +14,7 @@ let questions = {
   Question4: 'В какой стране живут самые счастливые люди?',
   Question5: 'Какое число обозначает приставка "деци"',
   Question6: 'Назовите самую длинную реку на Земле',
-  Question7: 'Сколько месяцев в году содержит 28 дней?'
+  Question7: 'Сколько месяцев в году содержит 28?'
 }
 // Варианты ответов
 let answers = {
@@ -31,52 +31,63 @@ let correctAnswers = ['1961', '116', '1922', 'Швеция', '0.1', 'Амазо�
 
 // Проверка на корректность
 function checkDisplaying() {
-  let x = 0;
-  let y = 0;
-  let z = 0;
+  let a = 1;
+  let b = 1;
+  let c = 1;
+  let d = 1;
   let result = [];
 
+// Допустимое количество символов в вопросе (58)
   for (let question of Object.values(questions)) {
-    if (question.length < 59) {
-      x = 1;
-    } else {
+    if (question.length >= 59) {
       let index = Object.values(questions).indexOf(question) + 1
       let symbols = question.length
       alert(`В вопросе № ${index} количество символов - ${symbols}`)
-      alert(`Максимальное количество символов для вопроса - 59`)
+      alert(`Максимальное количество символов для вопроса - не более 59`)
+      a = 0
     }
   }
-  result.push(x)
+  result.push(a)
 
+// Допустимое количество символов в ответе (24)
   for (let answer of Object.values(answers)) {
     for (let subAnswer of answer) {
-      if (subAnswer.length < 25) {
-        y = 1;
-      } else {
+      if (subAnswer.length >= 25) {
         let index = Object.values(answers).indexOf(answer) + 1
         let subIndex = answer.indexOf(subAnswer) + 1
         let symbols = subAnswer.length
         alert(`В блоке ответов №${index}, ответ №${subIndex} содержит
           количество символов - ${symbols}`)
-        alert(`Максимальное количество символов для овтета - 25`)
+        alert(`Максимальное количество символов для овтета - не более 25`)
+        b = 0
       }
     }
   }
-  result.push(y)
+  result.push(b)
 
-  if (correctAnswers.length === Object.values(questions).length) {
-    z = 1
+// Соответствие количества вопросов количеству ответов
+  if (correctAnswers.length !== Object.values(questions).length) {
+    alert(`Количество вопросов не соответствует количеству правильных ответов`)
+    c = 0
   }
-  result.push(z)
+  result.push(c)
+
+// Недопустимость наличия пустой строки в блоке правльных овтетов
+  for (let correctAnswer of correctAnswers) {
+    if (!correctAnswer.length) {
+      let index = correctAnswers.indexOf(correctAnswer) + 1
+      alert(`В блоке правильных овтетов позиция ${index} отсутствует`)
+      d = 0
+    }
+  }
+  result.push(d)
 
   return result
 }
-checkDisplaying()
-console.log(checkDisplaying());
 
 // Создание карточек с вопросами
-if (correctAnswers.length === Object.values(questions).length) {
-
+let checkDataPoints = checkDisplaying().reduce((acc, elem) => acc + elem)
+if (checkDataPoints === 4) {
   for (let i = 0; i < Object.keys(questions).length; i ++) {
     let newCard = card.cloneNode(true)
     let cardNumber = newCard.querySelector('.card-number')
@@ -95,8 +106,9 @@ if (correctAnswers.length === Object.values(questions).length) {
       testBody.appendChild(newCard)
   }
 } else {
-  alert('Количество вопросов не соответствует количеству правльных ответов')
+  alert('Входные данные не прошли проверку на корректность. Программа недоступна')
 }
+
 
 // Функция записи результата ответа, стилизация кликов
 function readAnswer(collection, num) {
