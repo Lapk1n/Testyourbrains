@@ -106,7 +106,7 @@ body {
 }
 .show-result-button {
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 40%;
   width: 150px;
   height: 60px;
@@ -114,23 +114,29 @@ body {
   border-radius: 40px;
   font-weight: 700;
   transition: background 0.3s;
-  outline:none;
-  background-color: #FFC524;
-}
-.reload-button {
-  position: absolute;
-  width: 40%;
-  height: 25%;
-  bottom: 10%;
-  left: 30%;
-  background-color: #FFC524;
-  font-weight: 900;
-  font-size: 20px;
-  border-radius: 2em;
   outline: none;
+  background-color: #FFC524;
+  text-align: center;
 }
 .hidden {
   display: none;
+}
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  position: absolute;
+  top: 10%;
+  left: 25%;
+  display: hidden;
+}
+table tr:first-child{
+  font-weight: bold;
+  font-size: 1.2em;
+  background-color: #FFC524;
+}
+table td {
+  border: 3px solid black;
+  padding: 10px;
 }
 
 /* Element effects */

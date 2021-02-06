@@ -1,8 +1,8 @@
+let body = document.querySelector('body')
 let testBody = document.querySelector('.test-body')
 let templateCard = document.querySelector('#card-template').content
 let card = templateCard.querySelector('.card')
 let button = document.querySelector('.button')
-let showResult = document.querySelector('.results')
 let resultStore = {}
 let showResultButton = document.querySelector('.show-result-button');
 
@@ -97,7 +97,7 @@ if (checkDataPoints === 4) {
     let cardAnswer = newCard.querySelector('.card-answer')
     let cardAnswerList = cardAnswer.children
 
-    for (let j = 0; j < cardAnswerList.length; j ++) {
+    for (let j = 0; j < cardAnswerList.length; j ++) {``
       cardAnswerList[j].textContent = Object.values(answers)[i][j]
     }
 
@@ -144,7 +144,7 @@ for (let i = 0; i < buttons.length; i ++) {
         cards[i + 1].classList.remove('hidden')
       } else {
         showResultButton.classList.remove('hidden')
-        showResultButton.textContent = 'Показать результаты'
+        showResultButton.textContent = 'Подсчитать результаты'
       }
     } else {
       alert('Сначала выберите ответ')
