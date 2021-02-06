@@ -4,7 +4,7 @@ let card = templateCard.querySelector('.card')
 let button = document.querySelector('.button')
 let showResult = document.querySelector('.results')
 let resultStore = {}
-let showResultButton = document.querySelector('.show-result-button')
+let showResultButton = document.querySelector('.show-result-button');
 
 // Список вопросов
 let questions = {
@@ -18,16 +18,61 @@ let questions = {
 }
 // Варианты ответов
 let answers = {
-  Answers1: [1961, 1962, 1963, 1964],
-  Answers2: [116, 100, 101, 105],
-  Answers3: [1920, 1921, 1922, 1924],
+  Answers1: ['1961', '1962', '1963', '1964'],
+  Answers2: ['116', '100', '101', '105'],
+  Answers3: ['1920', '1921', '1922', '1924'],
   Answers4: ['Швеция', 'Финляндия', 'Дания', 'Норвегия'],
-  Answers5: [0.01, 1, 10, 0.1],
+  Answers5: ['0.01', '1', '10', '0.1'],
   Answers6: ['Нил', 'Амазонка', 'Янцзы', 'Дунай'],
-  Answers7: [2, 1, 12, 6]
+  Answers7: ['2', '1', '12', '6']
 }
 // Правильные ответы
-let correctAnswers = [1961, 116, 1922, 'Швеция', 0.1, 'Амазонка', 12]
+let correctAnswers = ['1961', '116', '1922', 'Швеция', '0.1', 'Амазонка', '12']
+
+// Проверка на корректность
+function checkDisplaying() {
+  let x = 0;
+  let y = 0;
+  let z = 0;
+  let result = [];
+
+  for (let question of Object.values(questions)) {
+    if (question.length < 59) {
+      x = 1;
+    } else {
+      let index = Object.values(questions).indexOf(question) + 1
+      let symbols = question.length
+      alert(`В вопросе № ${index} количество символов - ${symbols}`)
+      alert(`Максимальное количество символов для вопроса - 59`)
+    }
+  }
+  result.push(x)
+
+  for (let answer of Object.values(answers)) {
+    for (let subAnswer of answer) {
+      if (subAnswer.length < 25) {
+        y = 1;
+      } else {
+        let index = Object.values(answers).indexOf(answer) + 1
+        let subIndex = answer.indexOf(subAnswer) + 1
+        let symbols = subAnswer.length
+        alert(`В блоке ответов №${index}, ответ №${subIndex} содержит
+          количество символов - ${symbols}`)
+        alert(`Максимальное количество символов для овтета - 25`)
+      }
+    }
+  }
+  result.push(y)
+
+  if (correctAnswers.length === Object.values(questions).length) {
+    z = 1
+  }
+  result.push(z)
+
+  return result
+}
+checkDisplaying()
+console.log(checkDisplaying());
 
 // Создание карточек с вопросами
 if (correctAnswers.length === Object.values(questions).length) {
@@ -44,51 +89,54 @@ if (correctAnswers.length === Object.values(questions).length) {
     for (let j = 0; j < cardAnswerList.length; j ++) {
       cardAnswerList[j].textContent = Object.values(answers)[i][j]
     }
+
     readAnswer(cardAnswerList, i)
-    if (i > 0) newCard.classList.add('hidden')
-    testBody.appendChild(newCard)
+      if (i > 0) newCard.classList.add('hidden')
+      testBody.appendChild(newCard)
   }
-// Функция записи результата ответа, стилизация кликов
-  function readAnswer(collection, num) {
-    for (let i = 0; i < collection.length; i ++) {
-      collection[i].onclick = () => {
-        resultStore[num] = collection[i].textContent
-        for (let item of collection) {
-          if (item.classList.contains('choosed')) {
-            item.classList.remove('choosed')
-          }
-        }
-        collection[i].classList.add('choosed')
-      }
-      collection[i].onmouseover = () => {
-        collection[i].style.background = '#FFC524'
-      }
-      collection[i].onmouseout = () => {
-        collection[i].style.background = ''
-      }
-      collection[i].onmousedown = () => {
-        collection[i].style.background = '#5FC900'
-      }
-    }
-  }
-// Смена карточек
-  let buttons = document.querySelectorAll('.button')
-  let cards = document.querySelectorAll('.card')
-  for (let i = 0; i < buttons.length; i ++) {
-    buttons[i].onclick = () => {
-      if (resultStore[i]) {
-        cards[i].classList.add('hidden')
-        if (cards[i + 1]) {
-          cards[i + 1].classList.remove('hidden')
-        } else {
-          showResultButton.classList.remove('hidden')
-          showResultButton.textContent = 'Показать результаты'
-        }
-      } else {
-        alert('Сначала выберите ответ')
-      }
-    }
-  };
 } else {
   alert('Количество вопросов не соответствует количеству правльных ответов')
+}
+
+// Функция записи результата ответа, стилизация кликов
+function readAnswer(collection, num) {
+  for (let i = 0; i < collection.length; i ++) {
+    collection[i].onclick = () => {
+      resultStore[num] = collection[i].textContent
+      for (let item of collection) {
+        if (item.classList.contains('choosed')) {
+          item.classList.remove('choosed')
+        }
+      }
+      collection[i].classList.add('choosed')
+    }
+    collection[i].onmouseover = () => {
+      collection[i].style.background = '#FFC524'
+    }
+    collection[i].onmouseout = () => {
+      collection[i].style.background = ''
+    }
+    collection[i].onmousedown = () => {
+      collection[i].style.background = '#5FC900'
+    }
+  }
+}
+
+// Смена карточек вопросов
+let buttons = document.querySelectorAll('.button')
+let cards = document.querySelectorAll('.card')
+for (let i = 0; i < buttons.length; i ++) {
+  buttons[i].onclick = () => {
+    if (resultStore[i]) {
+      cards[i].classList.add('hidden')
+      if (cards[i + 1]) {
+        cards[i + 1].classList.remove('hidden')
+      } else {
+        showResultButton.classList.remove('hidden')
+        showResultButton.textContent = 'Показать результаты'
+      }
+    } else {
+      alert('Сначала выберите ответ')
+    }
+  }
 }
