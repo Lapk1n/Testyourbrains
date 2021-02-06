@@ -37,7 +37,7 @@ function checkDisplaying() {
   let d = 1;
   let result = [];
 
-// Допустимое количество символов в вопросе (58)
+  // Допустимое количество символов в вопросе (58)
   for (let question of Object.values(questions)) {
     if (question.length >= 59) {
       let index = Object.values(questions).indexOf(question) + 1
@@ -49,7 +49,7 @@ function checkDisplaying() {
   }
   result.push(a)
 
-// Допустимое количество символов в ответе (24)
+  // Допустимое количество символов в ответе (24)
   for (let answer of Object.values(answers)) {
     for (let subAnswer of answer) {
       if (subAnswer.length >= 25) {
@@ -65,14 +65,14 @@ function checkDisplaying() {
   }
   result.push(b)
 
-// Соответствие количества вопросов количеству ответов
+  // Соответствие количества вопросов количеству ответов
   if (correctAnswers.length !== Object.values(questions).length) {
     alert(`Количество вопросов не соответствует количеству правильных ответов`)
     c = 0
   }
   result.push(c)
 
-// Недопустимость наличия пустой строки в блоке правльных овтетов
+  // Недопустимость наличия пустой строки в блоке правльных овтетов
   for (let correctAnswer of correctAnswers) {
     if (!correctAnswer.length) {
       let index = correctAnswers.indexOf(correctAnswer) + 1
@@ -106,9 +106,8 @@ if (checkDataPoints === 4) {
       testBody.appendChild(newCard)
   }
 } else {
-  alert('Входные данные не прошли проверку на корректность. Программа недоступна')
+  alert('Входные данные не прошли проверку на корректность. Программа недоступна.')
 }
-
 
 // Функция записи результата ответа, стилизация кликов
 function readAnswer(collection, num) {
