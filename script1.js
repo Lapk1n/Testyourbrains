@@ -2,13 +2,13 @@ let body = document.querySelector('body')
 let testBody = document.querySelector('.test-body')
 let templateCard = document.querySelector('#card-template').content
 let card = templateCard.querySelector('.card')
-let button = document.querySelector('.button')
+let button = document.querySelector('.next-button')
 let resultStore = {}
 let showResultButton = document.querySelector('.show-result-button');
 
 // Список вопросов
 let questions = {
-  Question1: 'Сколько океанов омывают нашу планету?',
+  Question1: 'Сколько океанов омывает нашу планету?',
   Question2: 'В каком году была разрушена Берлинская стена?',
   Question3: 'Назовите страну с наибольшим количеством границ',
   Question4: 'Кто автор Робинзона Крузо?',
@@ -43,9 +43,9 @@ function checkDisplaying() {
   let d = 1;
   let result = [];
 
-  // Допустимое количество символов в вопросе (58)
+  // Допустимое количество символов в вопросе (62)
   for (let question of Object.values(questions)) {
-    if (question.length >= 59) {
+    if (question.length >= 62) {
       let index = Object.values(questions).indexOf(question) + 1
       let symbols = question.length
       alert(`В вопросе № ${index} количество символов - ${symbols}`)
@@ -55,10 +55,10 @@ function checkDisplaying() {
   }
   result.push(a)
 
-  // Допустимое количество символов в ответе (24)
+  // Допустимое количество символов в ответе (35)
   for (let answer of Object.values(answers)) {
     for (let subAnswer of answer) {
-      if (subAnswer.length >= 25) {
+      if (subAnswer.length >= 35) {
         let index = Object.values(answers).indexOf(answer) + 1
         let subIndex = answer.indexOf(subAnswer) + 1
         let symbols = subAnswer.length
@@ -96,20 +96,22 @@ let checkDataPoints = checkDisplaying().reduce((acc, elem) => acc + elem)
 if (checkDataPoints === 4) {
   for (let i = 0; i < Object.keys(questions).length; i ++) {
     let newCard = card.cloneNode(true)
-    let cardNumber = newCard.querySelector('.card-number')
+    let cardNumber = newCard.querySelector('.card-question-number')
     cardNumber.textContent = i + 1;
+
     let cardQuestion = newCard.querySelector('.card-question')
-    cardQuestion.textContent = Object.values(questions)[i];
+    cardQuestion.children[1].textContent = Object.values(questions)[i];
+
     let cardAnswer = newCard.querySelector('.card-answer')
     let cardAnswerList = cardAnswer.children
 
-    for (let j = 0; j < cardAnswerList.length; j ++) {``
-      cardAnswerList[j].textContent = Object.values(answers)[i][j]
+    for (let j = 0; j < cardAnswerList.length; j ++) {
+      cardAnswerList[j].children[1].textContent += Object.values(answers)[i][j]
     }
-
     readAnswer(cardAnswerList, i)
-      if (i > 0) newCard.classList.add('hidden')
-      testBody.appendChild(newCard)
+    if (i <= 0) newCard.classList.add('show')
+    if (i > 0) newCard.classList.add('hidden')
+    testBody.appendChild(newCard)
   }
 } else {
   alert('Входные данные не прошли проверку на корректность. Программа недоступна.')
@@ -119,7 +121,7 @@ if (checkDataPoints === 4) {
 function readAnswer(collection, num) {
   for (let i = 0; i < collection.length; i ++) {
     collection[i].onclick = () => {
-      resultStore[num] = collection[i].textContent
+      resultStore[num] = collection[i].children[1].textContent
       for (let item of collection) {
         if (item.classList.contains('choosed')) {
           item.classList.remove('choosed')
@@ -140,14 +142,16 @@ function readAnswer(collection, num) {
 }
 
 // Смена карточек вопросов
-let buttons = document.querySelectorAll('.button')
+let buttons = document.querySelectorAll('.next-button')
 let cards = document.querySelectorAll('.card')
 for (let i = 0; i < buttons.length; i ++) {
   buttons[i].onclick = () => {
     if (resultStore[i]) {
       cards[i].classList.add('hidden')
+      cards[i].classList.remove('show')
       if (cards[i + 1]) {
         cards[i + 1].classList.remove('hidden')
+        cards[i + 1].classList.add('show')
       } else {
         showResultButton.classList.remove('hidden')
         showResultButton.textContent = 'Подсчитать результаты'

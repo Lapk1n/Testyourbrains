@@ -1,8 +1,9 @@
 body {
-  width: 1040px;
+  width: 100%;
   padding: 0;
   margin: 0 auto;
   height: 700px;
+  background: rgb(232, 233, 233);
 }
 .container {
   width: 800px;
@@ -21,80 +22,92 @@ body {
   margin: 50px 0;
   display: flex;
 }
-.card-number {
+
+.card-question {
   position: absolute;
-  width: 7%;
-  height: 11%;
+  width: 100%;
+  border: 4px solid black;
+  font-size: 3em;
+  border-radius: 2em;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: 140px;
+}
+.card-question-number {
+  width: 6.5%;
+  height: 38%;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 4px solid black;
   border-radius: 2em;
-  font-size: 3em;
+  font-size: 1em;
   font-weight: 900;
   background-color: #FFC524;
+  float: left;
+  margin-top: 4.8%;
+  margin-left: 2%;
 }
-.card-question {
-  position: absolute;
-  width: 100%;
-  min-height: 15%;
-  border-bottom: 1px solid black;
-  font-size: 3em;
-  box-sizing: border-box;
-  padding-left: 12%;
+.card-question-text {
+  width: 88%;
+  font-size: 0.9em;
+  float: right;
   text-align: left;
-  margin-bottom: 50px;
-}
-.results {
-  position: relative;
-  width: 400px;
-  height: 200px;
-  border: 1px solid black;
-  font-size: 2em;
-  margin: 50px auto;
-  text-align: center;
-  box-sizing: border-box;
-  padding-top: 50px;
-}
-.results-points {
-  position: absolute;
-  top: 30%;
-  height: 70%;
-  width: 100%;
-  left: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 .card-answer {
-  position:absolute;
-  top: 25%;
-  left: 10%;
-  width: 80%;
-  height: 60%;
+  position: absolute;
+  top: 23%;
+  width: 100%;
+  height: 47%;
   display: flex;
   padding: 0;
   list-style: none;
   flex-wrap: wrap;
-  justify-content: space-around;
   align-items: center;
 }
 .card-answer li {
-  width: 45%;
-  height: 40%;
+  position: relative;
+  width: 49%;
+  height: 90px;
   border: 4px solid black;
   border-radius: 2em;
-  font-size: 2.5em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 2em;
   transition: background 0.3s;
   text-align: center;
   word-break: break-word;
   cursor: pointer;
+  margin-bottom: -30px;
 }
-.button {
+.card-answer #text {
+  border: 1px solid black!;
+  width: 100%;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-left: 15%;
+  padding-right: 15%;
+  box-sizing: border-box;
+}
+.card-answer #let {
+  border: 4px solid black;
+  border-radius: 2em;
+  width: 10%;
+  position: absolute;
+  margin-top: 6%;
+  margin-left: 3%;
+  background-color: #FFC524;
+}
+.next-button {
   position: absolute;
   width: 20%;
   height: 8%;
-  bottom: -3%;
+  bottom: 10%;
   left: 40%;
   font-size: 1.2em;
   font-weight: 400;
@@ -118,8 +131,23 @@ body {
   background-color: #FFC524;
   text-align: center;
 }
-.hidden {
-  display: none;
+.results {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  border: 1px solid black;
+  font-size: 2em;
+  margin: 50px auto;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 50px;
+}
+.results-points {
+  position: absolute;
+  top: 30%;
+  height: 70%;
+  width: 100%;
+  left: 0;
 }
 table {
   table-layout: fixed;
@@ -140,11 +168,11 @@ table td {
 }
 
 /* Element effects */
-.button:hover {
+.next-button:hover {
   background-color: #FFF321;
   cursor: pointer;
 }
-.button:active {
+.next-button:active {
   background-color: #FFC524;
 }
 .show-result-button:hover {
@@ -154,13 +182,24 @@ table td {
 .show-result-button:active {
   background-color: #FFC524;
 }
-.reload-button:hover {
-  background-color: #FFF321;
-  cursor: pointer;
-}
-.reload-button:active {
-  background-color: #FFC524;
-}
 .choosed {
   background-color: #5FC900;
+}
+.hidden {
+  display: none;
+}
+.show {
+  display: block;
+  animation: showBlock 1s linear;
+}
+@keyframes showBlock {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }

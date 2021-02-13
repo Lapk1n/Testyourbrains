@@ -67,4 +67,5 @@ showResultButton.onclick = () => {
   table.rows[index].cells[2].textContent = `${points}/${Object.values(questions).length}`
   table.rows[index].cells[2].style.background = '#FFC524'
   table.classList.remove('hidden')
+  console.log(resultStore);
 }
