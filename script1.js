@@ -109,6 +109,7 @@ if (checkDataPoints === 4) {
       cardAnswerList[j].children[1].textContent += Object.values(answers)[i][j]
     }
     readAnswer(cardAnswerList, i)
+
     if (i <= 0) newCard.classList.add('show')
     if (i > 0) newCard.classList.add('hidden')
     testBody.appendChild(newCard)
@@ -144,14 +145,18 @@ function readAnswer(collection, num) {
 // Смена карточек вопросов
 let buttons = document.querySelectorAll('.next-button')
 let cards = document.querySelectorAll('.card')
+let lines = document.querySelectorAll('.card-progress-line')
+
 for (let i = 0; i < buttons.length; i ++) {
-  buttons[i].onclick = () => {
+  let length = buttons.length
+  buttons[i].addEventListener('pointerdown', () => {
     if (resultStore[i]) {
       cards[i].classList.add('hidden')
       cards[i].classList.remove('show')
       if (cards[i + 1]) {
         cards[i + 1].classList.remove('hidden')
         cards[i + 1].classList.add('show')
+        lines[i + 1].style.width = ((1 - ((length - i - 1) / length)) * 100) + '%'
       } else {
         showResultButton.classList.remove('hidden')
         showResultButton.textContent = 'Подсчитать результаты'
@@ -159,5 +164,8 @@ for (let i = 0; i < buttons.length; i ++) {
     } else {
       alert('Сначала выберите ответ')
     }
-  }
+  })
+}
+function checkProgress() {
+
 }
