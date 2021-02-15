@@ -66,12 +66,13 @@ body {
   margin-left: 2%;
 }
 .card-question-text {
-  width: 88%;
+  width: 85%;
   float: right;
   text-align: left;
   height: 100%;
   display: flex;
   align-items: center;
+  padding-right: 3%;
 }
 .card-timer {
   width: 6%;
@@ -86,7 +87,7 @@ body {
   padding-top: 0.5%;
   padding-left: 0.1%;
   justify-content: center;
-  background: rgba(217,33,43,0.9);
+  background: #FF301A;
 }
 .card-answer {
   position: absolute;
@@ -138,7 +139,7 @@ body {
   position: absolute;
   width: 20%;
   height: 8%;
-  bottom: 10%;
+  bottom: 14%;
   left: 40%;
   font-size: 1.3em;
   font-weight: 400;
@@ -147,7 +148,7 @@ body {
   text-decoration: none;
   outline: none;
   background-color: #FFC524;
-  font-family:"Montserrat", serif;
+  font-family: "Montserrat", serif;
 }
 .show-result-button {
   position: absolute;

@@ -115,12 +115,17 @@ if (checkDataPoints === 4) {
     readAnswer(cardAnswer, cardAnswerList, i)
     addClickStyles(cardAnswer)
 
+
     if (i <= 0) {
       newCard.classList.add('show');
       newCard.children[2].timer = timer
       newCard.children[2].timer()
+      newCard.id = i
     }
-    if (i > 0) newCard.classList.add('hidden')
+    if (i > 0) {
+      newCard.classList.add('hidden')
+      newCard.id = i
+    }
     testBody.appendChild(newCard)
   }
 } else {
@@ -161,17 +166,32 @@ function addClickStyles(card) {
 
 // Функкция обратного отсчета
 let timers = document.querySelectorAll('.card-timer')
+
 function timer() {
-  let start = 3
+  let start = 15
   timerId = setInterval(() => {
     this.textContent = start
-    // console.log(start)
     start -= 1
     if (start < 0) {
       clearInterval(timerId)
-      // console.log('time is over');
-      // $("#test").trigger('click');
-      // this.parentNode.querySelector('.next-button').trigger("click")
+      let card = this.parentNode
+      let length = Object.values(questions).length
+      let index = +card.id
+
+      if (resultStore[index] == undefined) resultStore[index] = '-'
+      card.classList.add('hidden')
+      card.classList.remove('show')
+
+      if (this.parentNode.nextSibling) {
+        card.nextSibling.classList.remove('hidden')
+        card.nextSibling.classList.add('show')
+        card.nextSibling.children[2].timer()
+        card.nextSibling.children[0].children[0].style.width = ((1 -
+        ((length - index - 1) / length)) * 100) + '%'
+        } else {
+          showResultButton.classList.remove('hidden')
+          showResultButton.textContent = 'Подсчитать результаты'
+        }
     }
   }, 1000)
 }
