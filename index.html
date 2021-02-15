@@ -4,6 +4,8 @@
     <meta charset = "utf-8">
     <title> Test your knowledge </title>
     <link rel = "stylesheet" href = "style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@200;400;700&family=Montserrat:wght@200;400;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   </head>
   <body>
     <div class = "container">
@@ -11,24 +13,27 @@
 
         <template id = "card-template">
           <div class = "card">
+
             <div class="card-progress">
               <div class="card-progress-line"></div>
             </div>
+
             <div class = "card-question">
               <div class = "card-question-number">
               </div>
               <div class="card-question-text">
               </div>
             </div>
+
+            <span class="card-timer"></span>
+
               <ul class = "card-answer">
                 <li> <div id = "let"> A </div> <div id = "text"></div> </li>
                 <li> <div id = "let"> Б </div> <div id = "text"></div> </li>
                 <li> <div id = "let"> В </div> <div id = "text"></div> </li>
                 <li> <div id = "let"> Г </div> <div id = "text"></div> </li>
               </ul>
-              <button class = "next-button" type = "submit">
-                Далее
-              </button>
+              <button class = "next-button" type = "submit"> Далее </button>
           </div>
         </template>
 

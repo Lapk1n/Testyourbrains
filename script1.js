@@ -5,6 +5,7 @@ let card = templateCard.querySelector('.card')
 let button = document.querySelector('.next-button')
 let resultStore = {}
 let showResultButton = document.querySelector('.show-result-button');
+let timerId;
 
 // Список вопросов
 let questions = {
@@ -19,6 +20,7 @@ let questions = {
   Question9: 'Сколько прабабушек может быть у человека?',
   Question10: 'Что такое виадук?',
 }
+
 // Варианты ответов
 let answers = {
   Answers1: ['7', '4', '5', '6'],
@@ -32,6 +34,7 @@ let answers = {
   Answers9: ['4', '6', '8', '10'],
   Answers10: ['Мост', 'Украшение', 'Водопад', 'Животное'],
 }
+
 // Правильные ответы
 let correctAnswers = ['5', '1989', 'Китай', 'Даниэль Дэфо', 'Печень', 'Лошадь', 'Сломанные', 'Вес', '8', 'Мост']
 
@@ -49,7 +52,7 @@ function checkDisplaying() {
       let index = Object.values(questions).indexOf(question) + 1
       let symbols = question.length
       alert(`В вопросе № ${index} количество символов - ${symbols}`)
-      alert(`Максимальное количество символов для вопроса - не более 59`)
+      alert(`Максимальное количество символов для вопроса - не более 62`)
       a = 0
     }
   }
@@ -64,7 +67,7 @@ function checkDisplaying() {
         let symbols = subAnswer.length
         alert(`В блоке ответов №${index}, ответ №${subIndex} содержит
           количество символов - ${symbols}`)
-        alert(`Максимальное количество символов для овтета - не более 25`)
+        alert(`Максимальное количество символов для овтета - не более 35`)
         b = 0
       }
     }
@@ -108,9 +111,15 @@ if (checkDataPoints === 4) {
     for (let j = 0; j < cardAnswerList.length; j ++) {
       cardAnswerList[j].children[1].textContent += Object.values(answers)[i][j]
     }
-    readAnswer(cardAnswerList, i)
 
-    if (i <= 0) newCard.classList.add('show')
+    readAnswer(cardAnswer, cardAnswerList, i)
+    addClickStyles(cardAnswer)
+
+    if (i <= 0) {
+      newCard.classList.add('show');
+      newCard.children[2].timer = timer
+      newCard.children[2].timer()
+    }
     if (i > 0) newCard.classList.add('hidden')
     testBody.appendChild(newCard)
   }
@@ -118,28 +127,56 @@ if (checkDataPoints === 4) {
   alert('Входные данные не прошли проверку на корректность. Программа недоступна.')
 }
 
-// Функция записи результата ответа, стилизация кликов
-function readAnswer(collection, num) {
-  for (let i = 0; i < collection.length; i ++) {
-    collection[i].onclick = () => {
-      resultStore[num] = collection[i].children[1].textContent
-      for (let item of collection) {
-        if (item.classList.contains('choosed')) {
-          item.classList.remove('choosed')
-        }
-      }
-      collection[i].classList.add('choosed')
+// Функция записи результата ответа
+function readAnswer(card, collection, num) {
+  card.addEventListener('pointerdown', (event) => {
+    if (event.target.tagName !== 'DIV') return;
+    let target = event.target.closest('LI')
+    resultStore[num] = target.children[1].textContent
+    for (let elem of collection) {
+      elem.classList.remove('choosed')
     }
-    collection[i].onmouseover = () => {
-      collection[i].style.background = '#FFC524'
+    target.classList.add('choosed')
+  })
+}
+
+// Функция стилизации кликов
+function addClickStyles(card) {
+  card.addEventListener('pointerover', (event) => {
+    if (event.target.tagName !== 'DIV') return;
+    let target = event.target.closest('LI')
+    target.style.background = '#FFC524'
+  })
+  card.addEventListener('pointerout', (event) => {
+    if (event.target.tagName !== 'DIV') return;
+    let target = event.target.closest('LI')
+    target.style.background = ''
+  })
+  card.addEventListener('pointerdown', (event) => {
+    if (event.target.tagName !== 'DIV') return;
+    let target = event.target.closest('LI')
+    target.style.background = '#5FC900'
+  })
+}
+
+// Функкция обратного отсчета
+let timers = document.querySelectorAll('.card-timer')
+function timer() {
+  let start = 3
+  timerId = setInterval(() => {
+    this.textContent = start
+    // console.log(start)
+    start -= 1
+    if (start < 0) {
+      clearInterval(timerId)
+      // console.log('time is over');
+      // $("#test").trigger('click');
+      // this.parentNode.querySelector('.next-button').trigger("click")
     }
-    collection[i].onmouseout = () => {
-      collection[i].style.background = ''
-    }
-    collection[i].onmousedown = () => {
-      collection[i].style.background = '#5FC900'
-    }
-  }
+  }, 1000)
+}
+for (let elem of timers) {
+  elem.timer = timer
 }
 
 // Смена карточек вопросов
@@ -150,22 +187,18 @@ let lines = document.querySelectorAll('.card-progress-line')
 for (let i = 0; i < buttons.length; i ++) {
   let length = buttons.length
   buttons[i].addEventListener('pointerdown', () => {
-    if (resultStore[i]) {
-      cards[i].classList.add('hidden')
-      cards[i].classList.remove('show')
-      if (cards[i + 1]) {
-        cards[i + 1].classList.remove('hidden')
-        cards[i + 1].classList.add('show')
-        lines[i + 1].style.width = ((1 - ((length - i - 1) / length)) * 100) + '%'
+    if (resultStore[i] == undefined) resultStore[i] = '-'
+    cards[i].classList.add('hidden')
+    cards[i].classList.remove('show')
+    clearInterval(timerId)
+    if (cards[i + 1]) {
+      cards[i + 1].classList.remove('hidden')
+      cards[i + 1].classList.add('show')
+      timers[i + 1].timer()
+      lines[i + 1].style.width = ((1 - ((length - i - 1) / length)) * 100) + '%'
       } else {
         showResultButton.classList.remove('hidden')
         showResultButton.textContent = 'Подсчитать результаты'
       }
-    } else {
-      alert('Сначала выберите ответ')
-    }
   })
-}
-function checkProgress() {
-
 }

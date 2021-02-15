@@ -4,6 +4,7 @@ body {
   margin: 0 auto;
   height: 700px;
   background: rgb(232, 233, 233);
+  font-family:"Montserrat", serif;
 }
 .container {
   width: 800px;
@@ -34,20 +35,20 @@ body {
 .card-progress-line {
   width: 0%;
   height: 100%;
-  background: green;
+  background: #5FC900;
   border-radius: 2em;
 }
 .card-question {
   position: absolute;
   width: 100%;
   border: 4px solid black;
-  font-size: 3em;
+  font-size: 2.2em;
   border-radius: 2em;
   box-sizing: border-box;
   text-align: center;
   margin: 0;
   padding: 0;
-  height: 140px;
+  height: 28%;
 }
 .card-question-number {
   width: 6.5%;
@@ -66,12 +67,26 @@ body {
 }
 .card-question-text {
   width: 88%;
-  font-size: 0.9em;
   float: right;
   text-align: left;
   height: 100%;
   display: flex;
   align-items: center;
+}
+.card-timer {
+  width: 6%;
+  height: 8.5%;
+  border: 2px solid black;
+  border-radius: 2em;
+  position: absolute;
+  top: 47.6%;
+  left: 46.7%;
+  font-size: 2em;
+  display: flex;
+  padding-top: 0.5%;
+  padding-left: 0.1%;
+  justify-content: center;
+  background: rgba(217,33,43,0.9);
 }
 .card-answer {
   position: absolute;
@@ -90,7 +105,7 @@ body {
   height: 90px;
   border: 4px solid black;
   border-radius: 2em;
-  font-size: 2em;
+  font-size: 1.5em;
   transition: background 0.3s;
   text-align: center;
   word-break: break-word;
@@ -112,9 +127,11 @@ body {
   border: 4px solid black;
   border-radius: 2em;
   width: 10%;
+  height: 38%;
   position: absolute;
-  margin-top: 6%;
+  margin-top: 5.6%;
   margin-left: 3%;
+  padding-top: 1%;
   background-color: #FFC524;
 }
 .next-button {
@@ -123,13 +140,14 @@ body {
   height: 8%;
   bottom: 10%;
   left: 40%;
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: 400;
   border-radius: 40px;
   transition: background 0.3s;
   text-decoration: none;
   outline: none;
   background-color: #FFC524;
+  font-family:"Montserrat", serif;
 }
 .show-result-button {
   position: absolute;
@@ -168,7 +186,7 @@ table {
   border-collapse: collapse;
   position: absolute;
   top: 10%;
-  left: 25%;
+  left: 19%;
   display: hidden;
 }
 table tr:first-child{
