@@ -16,7 +16,7 @@ let questions = {
   Question5: 'Где образуется желчь?',
   Question6: 'Кто спит с открытыми глазами?',
   Question7: 'Какие часы показывают время только 2 раза в сутки?',
-  Question8: 'Что теряют космонавты во время полета',
+  Question8: 'Что теряют космонавты во время полета?',
   Question9: 'Сколько прабабушек может быть у человека?',
   Question10: 'Что такое виадук?',
 }
@@ -48,6 +48,7 @@ function checkDisplaying() {
 
   // Допустимое количество символов в вопросе (62)
   for (let question of Object.values(questions)) {
+
     if (question.length >= 62) {
       let index = Object.values(questions).indexOf(question) + 1
       let symbols = question.length
@@ -60,7 +61,9 @@ function checkDisplaying() {
 
   // Допустимое количество символов в ответе (35)
   for (let answer of Object.values(answers)) {
+
     for (let subAnswer of answer) {
+
       if (subAnswer.length >= 35) {
         let index = Object.values(answers).indexOf(answer) + 1
         let subIndex = answer.indexOf(subAnswer) + 1
@@ -83,6 +86,7 @@ function checkDisplaying() {
 
   // Недопустимость наличия пустой строки в блоке правльных овтетов
   for (let correctAnswer of correctAnswers) {
+
     if (!correctAnswer.length) {
       let index = correctAnswers.indexOf(correctAnswer) + 1
       alert(`В блоке правильных овтетов позиция ${index} отсутствует`)
@@ -97,6 +101,7 @@ function checkDisplaying() {
 // Создание карточек с вопросами
 let checkDataPoints = checkDisplaying().reduce((acc, elem) => acc + elem)
 if (checkDataPoints === 4) {
+
   for (let i = 0; i < Object.keys(questions).length; i ++) {
     let newCard = card.cloneNode(true)
     let cardNumber = newCard.querySelector('.card-question-number')
@@ -135,9 +140,11 @@ if (checkDataPoints === 4) {
 // Функция записи результата ответа
 function readAnswer(card, collection, num) {
   card.addEventListener('pointerdown', (event) => {
+
     if (event.target.tagName !== 'DIV') return;
     let target = event.target.closest('LI')
     resultStore[num] = target.children[1].textContent
+
     for (let elem of collection) {
       elem.classList.remove('choosed')
     }
@@ -148,16 +155,19 @@ function readAnswer(card, collection, num) {
 // Функция стилизации кликов
 function addClickStyles(card) {
   card.addEventListener('pointerover', (event) => {
+
     if (event.target.tagName !== 'DIV') return;
     let target = event.target.closest('LI')
     target.style.background = '#FFC524'
   })
   card.addEventListener('pointerout', (event) => {
+
     if (event.target.tagName !== 'DIV') return;
     let target = event.target.closest('LI')
     target.style.background = ''
   })
   card.addEventListener('pointerdown', (event) => {
+
     if (event.target.tagName !== 'DIV') return;
     let target = event.target.closest('LI')
     target.style.background = '#5FC900'
@@ -172,6 +182,7 @@ function timer() {
   timerId = setInterval(() => {
     this.textContent = start
     start -= 1
+    if (start < 5) this.parentNode.children[2].style.backgroundColor = '#FF301A'
     if (start < 0) {
       clearInterval(timerId)
       let card = this.parentNode
@@ -199,6 +210,7 @@ for (let elem of timers) {
   elem.timer = timer
 }
 
+
 // Смена карточек вопросов
 let buttons = document.querySelectorAll('.next-button')
 let cards = document.querySelectorAll('.card')
@@ -206,11 +218,14 @@ let lines = document.querySelectorAll('.card-progress-line')
 
 for (let i = 0; i < buttons.length; i ++) {
   let length = buttons.length
+
   buttons[i].addEventListener('pointerdown', () => {
+
     if (resultStore[i] == undefined) resultStore[i] = '-'
     cards[i].classList.add('hidden')
     cards[i].classList.remove('show')
     clearInterval(timerId)
+
     if (cards[i + 1]) {
       cards[i + 1].classList.remove('hidden')
       cards[i + 1].classList.add('show')

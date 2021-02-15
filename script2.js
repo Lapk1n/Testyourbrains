@@ -4,6 +4,7 @@ let resultsPoints = document.querySelector('.results-points')
 function calcPoints(correctAnswers, resultStore) {
   let sum = 0;
   for (let i = 0; i < correctAnswers.length; i ++) {
+
     if (String(correctAnswers[i]) === Object.values(resultStore)[i]) {
       sum ++
     }
@@ -17,6 +18,7 @@ let trNumbers = Object.keys(questions).length + 2
 
 for (let i = 1; i <= trNumbers; i++) {
   let tr = document.createElement('tr')
+
   for (let i = 1; i <= 3; i ++) {
     let td = document.createElement('td')
     tr.append(td)
@@ -63,6 +65,7 @@ showResultButton.addEventListener('pointerdown', () => {
     let tdBasic = table.rows[i].cells[1]
     tdUser.textContent = Object.values(resultStore)[i - 1]
     tdUser.style.textAlign = 'center'
+
     if (tdUser.textContent === tdBasic.textContent) {
       tdUser.style.background = '#5FC900'
     } else {
@@ -73,6 +76,7 @@ showResultButton.addEventListener('pointerdown', () => {
 
   let maxPoints = Object.values(questions).length
   let tdResult = table.rows[index].cells[2]
+  
   if (points <= maxPoints && points >= maxPoints * 0.8) tdResult.style.background = '#5FC900';
   if (points < maxPoints * 0.8 && points >= maxPoints * 0.6) tdResult.style.background = '#FFC524';
   if (points < maxPoints * 0.6) tdResult.style.background = '#D63211';

@@ -29,7 +29,7 @@ body {
   border: 2px solid black;
   border-radius: 2em;
   height: 2%;
-  top: -4%;
+  top: -5%;
   left: 8%;
 }
 .card-progress-line {
@@ -87,7 +87,7 @@ body {
   padding-top: 0.5%;
   padding-left: 0.1%;
   justify-content: center;
-  background: #FF301A;
+  background-color: #5FC900;
 }
 .card-answer {
   position: absolute;
